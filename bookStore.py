@@ -1,3 +1,6 @@
+from typing import Set
+
+
 class Customer:
     shopping_cart = []
 
@@ -29,6 +32,24 @@ class Customer:
             # If previous sets contain this version, add a new set
             if not checked:
                 sets.append([book])
+
+        # Swap a book from every set of 5 books to every set of 3 books
+        for i in range(len(sets)):
+            if len(sets[i]) < 5:
+                break
+            for j in range(i + 1, len(sets)):
+                if len(sets[j]) > 3:
+                    continue
+                elif len(sets[j]) < 3:
+                    break
+                # Find the book that isn't in the set of 3 books
+                for book in sets[i]:
+                    if book not in sets[j]:
+                        sets[j].append(book)
+                        sets[i].remove(book)
+                        break
+                break
+
         return sets
 
     def getPrice(self, sets):
