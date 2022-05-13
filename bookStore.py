@@ -11,5 +11,6 @@ class Customer:
         self.shopping_cart = shoppingList
 
     def checkout(self):
+        price = 8 * len(self.shopping_cart)
         self.shopping_cart.clear()
-        return -1
+        return price
