@@ -11,6 +11,12 @@ class Customer:
         self.shopping_cart = shoppingList
 
     def checkout(self):
+        sets = self.getSets()
+        price = self.getPrice(sets)
+        self.shopping_cart.clear()
+        return price
+
+    def getSets(self):
         # Divide books into sets of series for best price
         sets = [[]]
         for book in self.shopping_cart:
@@ -23,6 +29,9 @@ class Customer:
             # If previous sets contain this version, add a new set
             if not checked:
                 sets.append([book])
+        return sets
+
+    def getPrice(self, sets):
         price = 0
         for set in sets:
             # Check if any discount can be given
@@ -38,5 +47,4 @@ class Customer:
                         price += 8 * len(set) * 0.75
             else:
                 price += 8 * len(set)
-        self.shopping_cart.clear()
         return price
