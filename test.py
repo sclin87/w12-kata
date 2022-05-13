@@ -1,5 +1,3 @@
-from distutils.sysconfig import customize_compiler
-from os import curdir
 from bookStore import Customer
 
 
@@ -41,3 +39,15 @@ def testSeveralDiscounts():
     assert (8 * 4 * 0.8) + (8 * 2 * 0.95) == customer.checkout()
     customer.buyList([0, 1, 1, 2, 3, 4])
     assert 8 + (8 * 5 * 0.75) == customer.checkout()
+
+
+def testEdgeCases():
+    customer = Customer()
+    customer.buyList([0, 0, 1, 1, 2, 2, 3, 4])
+    assert 2 * (8 * 4 * 0.8) == customer.checkout()
+    customer.buyList([0, 0, 0, 0, 0,
+                      1, 1, 1, 1, 1,
+                      2, 2, 2, 2,
+                      3, 3, 3, 3, 3,
+                      4, 4, 4, 4])
+    assert 3 * (8 * 5 * 0.75) + 2 * (8 * 4 * 0.8) == customer.checkout()
